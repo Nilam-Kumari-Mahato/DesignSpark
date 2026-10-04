@@ -1,0 +1,491 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: url('./assets/bg_img.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #9ae6f7;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+}
+
+
+/* ── Site Header ── */
+.site-header {
+  width: 100%;
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+}
+
+.site-title {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #7c4dcc;
+  margin: 0 0 0.25rem;
+  text-shadow: 4px 4px 0px #c8a0e8;
+  line-height: 1.1;
+}
+
+.site-tagline {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
+  color: #a78bca;
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.site-description {
+  margin: 0.4rem 0 0;
+  color: #7d7188;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+/* ── Label rows ── */
+.categories,
+.difficulties {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a78bca;
+  /* soft lavender-purple */
+  margin: 0 0 6px 2px;
+}
+
+/* ── Pill badges ── */
+.category,
+.difficulty {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #a78bca;
+  border-radius: 999px;
+  /* full pill */
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 12px;
+  margin: 3px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+
+  /* flat 2D candy shadow — offset, no blur */
+  box-shadow: 3px 3px 0px #a78bca;
+}
+
+.category {
+  background-color: #fff0f8;
+  /* blush pink */
+  color: #c261a0;
+  border-color: #e8a0ce;
+  box-shadow: 3px 3px 0px #e8a0ce;
+}
+
+.difficulty {
+  background-color: #eef6ff;
+  /* sky blue */
+  color: #4a9fdb;
+  border-color: #7cc4f0;
+  box-shadow: 3px 3px 0px #7cc4f0;
+}
+
+.category:hover,
+.difficulty:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px currentColor;
+}
+
+/* ── Sidebar window ── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 248, 255, 0.85);
+  /* glassy blush white */
+  border: 2.5px solid #c8a0e8;
+  border-radius: 12px;
+  box-shadow: 5px 5px 0px #c8a0e8;
+  /* flat 2D pop shadow */
+  height: auto;
+  width: 20%;
+  position: absolute;
+  left: 20%;
+  top: 30%;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+}
+
+/* ── Sidebar title bar (mimics the bg's window chrome) ── */
+.sidebartop {
+  height: 2rem;
+  background: linear-gradient(90deg, #b8d8f8 0%, #f8c4e4 100%);
+  border-bottom: 2px solid #c8a0e8;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  padding-left: 8px;
+}
+
+/* ── Traffic-light circles (like the bg's window decorations) ── */
+.sidebartopCircle {
+  height: 0.65rem;
+  width: 0.65rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
+/* Color the three dots to match the kawaii windows in the bg */
+.sidebartopCircle:nth-child(1) {
+  background-color: #ff8fab;
+}
+
+/* pink  */
+.sidebartopCircle:nth-child(2) {
+  background-color: #ffd166;
+}
+
+/* yellow */
+.sidebartopCircle:nth-child(3) {
+  background-color: #78cdd7;
+}
+
+/* teal  */
+
+/* ── Sidebar item list ── */
+.sidebarItems {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 4px;
+}
+
+.heronull {
+  height: 30%;
+  width: 40%;
+  position: absolute;
+  top: 25%;
+  right: 15%;
+  background-color: rgba(255, 248, 255, 0.85);
+  /* glassy blush white */
+  border: 2.5px solid #c8a0e8;
+  border-radius: 12px;
+  box-shadow: 5px 5px 0px #c8a0e8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a78bca;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.challenge-panel {
+  height: auto;
+  max-height: 68vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #b98cdb #f7eafb;
+  justify-content: flex-start;
+  align-items: stretch;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #51445f;
+  text-align: left;
+}
+
+/* Flat candy-colored scrollbar to match the challenge panel's 2D styling. */
+.challenge-panel::-webkit-scrollbar {
+  width: 12px;
+}
+
+.challenge-panel::-webkit-scrollbar-track {
+  background: #f7eafb;
+  border-left: 2px solid #c8a0e8;
+  border-radius: 0 9px 9px 0;
+}
+
+.challenge-panel::-webkit-scrollbar-thumb {
+  background: #d6b7ef;
+  border: 2px solid #f7eafb;
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 #a980c8;
+}
+
+.challenge-panel::-webkit-scrollbar-thumb:hover {
+  background: #c49ae5;
+}
+
+.challenge-panel h1 {
+  color: #7c4dcc;
+  margin: 0.4rem 0 1rem;
+  line-height: 1.2;
+}
+
+.challenge-panel h2 {
+  margin: 0 0 0.25rem;
+  color: #8d66b9;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.challenge-panel p,
+.challenge-panel ul {
+  margin: 0 0 0.9rem;
+}
+
+.challenge-panel ul {
+  padding-left: 1.2rem;
+}
+
+.challenge-panel section {
+  margin-bottom: 0.3rem;
+}
+
+.challenge-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.challenge-meta span {
+  border-radius: 999px;
+  background: #f1e8ff;
+  color: #7c4dcc;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.generatebtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.4rem;
+  background-color: #eee8ff;
+  color: #7c4dcc;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid #c8a0e8;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #c8a0e8;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.generatebtn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #c8a0e8;
+}
+
+.generatebtn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #c8a0e8;
+}
+
+.generatebtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 4px 4px 0px #c8a0e8;
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE — Tablet  (≤ 768px)
+════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Sidebar: drop absolute positioning, go full-width */
+  .sidebar {
+    position: relative;
+    left: unset;
+    top: unset;
+    width: 90%;
+    margin: 16px auto;
+  }
+
+  /* Hero panel: drop absolute positioning, go full-width */
+  .heronull {
+    position: relative;
+    right: unset;
+    top: unset;
+    width: 90%;
+    height: auto;
+    min-height: 120px;
+    margin: 16px auto;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  /* Labels */
+  .categories,
+  .difficulties {
+    font-size: 0.7rem;
+    margin: 0 0 4px 2px;
+  }
+
+  /* Pills — allow wrapping */
+  .category,
+  .difficulty {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+  }
+
+  /* Generate button */
+  .generatebtn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.75rem;
+    padding: 0.55rem 1rem;
+  }
+
+  /* Header */
+  .site-title {
+    font-size: 2.2rem;
+    text-shadow: 3px 3px 0px #c8a0e8;
+  }
+
+  .site-tagline {
+    font-size: 0.9rem;
+  }
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE — Mobile  (≤ 480px)
+════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  :root {
+    font-size: 14px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 95%;
+    border-radius: 8px;
+  }
+
+  .sidebartop {
+    height: 1.6rem;
+  }
+
+  .sidebartopCircle {
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+
+  .sidebarItems {
+    padding: 6px;
+    gap: 3px;
+  }
+
+  /* Hero panel */
+  .heronull {
+    width: 95%;
+    font-size: 0.7rem;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  /* Labels */
+  .categories,
+  .difficulties {
+    font-size: 0.65rem;
+  }
+
+  /* Pills */
+  .category,
+  .difficulty {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    margin: 2px;
+    box-shadow: 2px 2px 0px currentColor;
+  }
+
+  /* Generate button */
+  .generatebtn {
+    font-size: 0.7rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #c8a0e8;
+  }
+
+  .generatebtn:hover {
+    box-shadow: 5px 5px 0px #c8a0e8;
+  }
+
+  /* Header */
+  .site-header {
+    padding: 1.2rem 0.75rem 0.75rem;
+  }
+
+  .site-title {
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 0px #c8a0e8;
+  }
+
+  .site-tagline {
+    font-size: 0.8rem;
+  }
+}
